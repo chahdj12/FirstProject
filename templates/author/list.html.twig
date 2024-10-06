@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Authors List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* Optionnel : pour rendre l'image ronde */
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Authors</h1>
+    {% if authors is empty %}
+        <p>No authors found.</p>
+    {% else %}
+        <p>Total authors: {{ authors|length }}</p>
+        <p>Total books: {{ authors | reduce((total, author) => total + author.nb_books, 0) }}</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Picture</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Number of Books</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for author in authors %}
+                    <a href="{{ path('list_authors', { 'id': author.id }) }}">
+                    <tr>
+                        <td><img src="{{ author.picture }}" alt="{{ author.username }}"></td>
+                        <td>{{ author.username | upper }}</td>
+                        <td>{{ author.email }}</td>
+                        <td>{{ author.nb_books }}</td>
+                        <td><a href="{{ path('author_details', { 'id': author.id }) }}">Details</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>
