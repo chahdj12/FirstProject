@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{dump(client)}}
+ <div class="alert alert-success">
+     {{ client.nom }} {{ client.prenom}} a {{ client.age }} ans
+ </div>
+{% endblock %}
+
+{% block title %}
+ {{ client.nom }} {{ client.prenom}}
+{% endblock %}
